@@ -2,17 +2,46 @@
    Space Orbit: Flexbox Navigator - Orbit Simulation Board Styles
    ========================================================================== */
 
+:root {
+  --board-size: 460px;
+  --pod-size: 70px;
+  --pod-margin: 6px;
+  --board-padding: 16px;
+  --grid-step: 46px;
+}
+
+@media (max-width: 540px) {
+  :root {
+    --board-size: min(calc(100vw - 2rem), 380px);
+    --pod-size: calc(var(--board-size) * (70 / 460));
+    --pod-margin: calc(var(--board-size) * (6 / 460));
+    --board-padding: calc(var(--board-size) * (16 / 460));
+    --grid-step: calc(var(--board-size) / 10);
+  }
+}
+
+@media (max-width: 380px) {
+  :root {
+    --board-size: min(calc(100vw - 1.5rem), 320px);
+    --pod-size: calc(var(--board-size) * (70 / 460));
+    --pod-margin: calc(var(--board-size) * (6 / 460));
+    --board-padding: calc(var(--board-size) * (16 / 460));
+    --grid-step: calc(var(--board-size) / 10);
+  }
+}
+
 .simulation-panel {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
+  width: 100%;
 }
 
 /* Simulation HUD Header */
 .board-hud {
-  width: 100%;
-  max-width: 460px;
+  width: var(--board-size);
+  max-width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -23,6 +52,7 @@
   font-family: var(--font-code);
   font-size: 0.75rem;
   color: var(--text-secondary);
+  box-sizing: border-box;
 }
 
 .hud-status {
@@ -63,16 +93,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  perspective: 1000px;
 }
 
-/* Fixed Dimension Game Board (Exact 460x460px) */
+/* Responsive Game Board (Proportional 1:1 Aspect Ratio) */
 .space-board {
   position: relative;
-  width: 460px;
-  height: 460px;
-  min-width: 460px;
-  min-height: 460px;
+  width: var(--board-size);
+  height: var(--board-size);
+  aspect-ratio: 1 / 1;
+  max-width: 100%;
   background: radial-gradient(circle at 50% 50%, #0d1527 0%, #060913 100%);
   border: 2px solid var(--border-neon);
   border-radius: var(--radius-lg);
@@ -82,6 +111,7 @@
     0 0 25px var(--accent-cyan-glow);
   overflow: hidden;
   user-select: none;
+  box-sizing: border-box;
 }
 
 /* Star Radar & Grid Overlay */
@@ -95,7 +125,7 @@
   background-image: 
     linear-gradient(rgba(0, 240, 255, 0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 240, 255, 0.04) 1px, transparent 1px);
-  background-size: 46px 46px; /* 10x10 precise grid */
+  background-size: var(--grid-step) var(--grid-step);
   z-index: 1;
 }
 
@@ -104,8 +134,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 380px;
-  height: 380px;
+  width: calc(var(--board-size) * (380 / 460));
+  height: calc(var(--board-size) * (380 / 460));
   transform: translate(-50%, -50%);
   border-radius: 50%;
   border: 1px dashed rgba(0, 240, 255, 0.08);
@@ -120,7 +150,7 @@
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  padding: 16px;
+  padding: var(--board-padding);
   display: flex;
 }
 
@@ -138,9 +168,9 @@
 
 /* Target Docking Stations */
 .target-pod {
-  width: 70px;
-  height: 70px;
-  margin: 6px;
+  width: var(--pod-size);
+  height: var(--pod-size);
+  margin: var(--pod-margin);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -166,9 +196,9 @@
 
 /* Spaceship Elements */
 .spaceship {
-  width: 70px;
-  height: 70px;
-  margin: 6px;
+  width: var(--pod-size);
+  height: var(--pod-size);
+  margin: var(--pod-margin);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -250,6 +280,8 @@
 
 /* Legend */
 .board-footer-legend {
+  width: var(--board-size);
+  max-width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -257,6 +289,7 @@
   font-size: 0.82rem;
   color: var(--text-secondary);
   margin-top: 0.5rem;
+  box-sizing: border-box;
 }
 
 .legend-item {
@@ -279,20 +312,4 @@
 .legend-dot.ship-dot {
   background: var(--accent-orange);
   box-shadow: 0 0 6px var(--accent-orange);
-}
-
-/* Mobile Scaling for Board */
-@media (max-width: 520px) {
-  .board-outer-container {
-    transform-origin: top center;
-    transform: scale(0.78);
-    height: 370px;
-  }
-}
-
-@media (max-width: 400px) {
-  .board-outer-container {
-    transform: scale(0.68);
-    height: 325px;
-  }
 }

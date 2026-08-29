@@ -6,6 +6,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 100%;
 }
 
 /* Mission Briefing Card */
@@ -18,6 +19,7 @@
   backdrop-filter: blur(12px);
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .mission-card::before {
@@ -35,6 +37,7 @@
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 0.6rem;
+  flex-wrap: wrap;
 }
 
 .mission-tag {
@@ -46,6 +49,7 @@
   padding: 0.2rem 0.6rem;
   border-radius: var(--radius-full);
   letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 .mission-title {
@@ -68,6 +72,9 @@
   font-family: var(--font-code);
   font-size: 0.88rem;
   font-weight: 600;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
 }
 
 /* CSS Code Editor Card */
@@ -77,6 +84,8 @@
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card), 0 0 20px rgba(0, 240, 255, 0.1);
   overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .editor-header {
@@ -139,12 +148,14 @@
   user-select: none;
   border-right: 1px solid rgba(255, 255, 255, 0.06);
   margin-right: 1.25rem;
+  flex-shrink: 0;
 }
 
 .editor-code {
   flex: 1;
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .code-line {
@@ -186,7 +197,7 @@
 .control-row {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 0.35rem;
   padding-left: 1.5rem;
 }
@@ -194,6 +205,7 @@
 .control-prop-label {
   color: #00f0ff;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 /* Futuristic Select Input */
@@ -253,16 +265,17 @@
   align-items: center;
   gap: 0.75rem;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .actions-toolbar .btn-primary {
-  flex: 1.5;
+  flex: 2;
   min-width: 180px;
 }
 
 .actions-toolbar .btn-secondary {
   flex: 1;
-  min-width: 110px;
+  min-width: 100px;
 }
 
 /* Feedback Banner / Toast */
@@ -275,6 +288,7 @@
   border: 1px solid transparent;
   animation: slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   transition: all var(--transition-normal);
+  box-sizing: border-box;
 }
 
 .feedback-banner.hidden {
@@ -326,6 +340,7 @@
   padding: 1rem 1.25rem;
   box-shadow: 0 0 15px rgba(255, 170, 0, 0.15);
   animation: slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
 }
 
 .hint-box.hidden {
@@ -369,9 +384,82 @@
   padding: 0.1rem 0.35rem;
   border-radius: 4px;
   font-family: var(--font-code);
+  display: inline-block;
+  white-space: nowrap;
 }
 
 @keyframes slide-up {
   from { transform: translateY(10px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
+
+@media (max-width: 960px) {
+  .controls-panel {
+    display: contents;
+  }
+}
+
+/* Mobile Specific Tweaks for Controls */
+@media (max-width: 640px) {
+  .mission-card {
+    padding: 0.9rem 1.1rem;
+  }
+  
+  .mission-title {
+    font-size: 1.1rem;
+  }
+
+  .mission-desc {
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  .editor-header {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .editor-body {
+    padding: 0.85rem 0.65rem;
+    font-size: 0.88rem;
+  }
+
+  .line-numbers {
+    padding-right: 0.65rem;
+    margin-right: 0.65rem;
+  }
+
+  .control-row {
+    padding-left: 0.85rem;
+    gap: 0.25rem;
+  }
+
+  .code-line.indent {
+    padding-left: 0.85rem;
+  }
+
+  .css-select {
+    font-size: 0.86rem;
+    padding: 0.2rem 1.5rem 0.2rem 0.5rem;
+  }
+
+  .actions-toolbar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+
+  .actions-toolbar .btn-primary {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-width: unset;
+    padding: 0.8rem 1rem;
+  }
+
+  .actions-toolbar .btn-secondary {
+    width: 100%;
+    min-width: unset;
+    padding: 0.65rem 0.5rem;
+    font-size: 0.88rem;
+  }
+}
+
