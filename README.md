@@ -1,4 +1,4 @@
-# Space Orbit: Flexbox Navigator 🚀
+# Space Orbit: Flexbox Navigator 🚀 
 > משחק אינטראקטיבי מתקדם ללימוד ותרגול CSS Flexbox | מטלה מספר 2 בקורס פיתוח יישומי אינטרנט
 
 ![Space Orbit Game](assets/spaceship-cyan.svg)
