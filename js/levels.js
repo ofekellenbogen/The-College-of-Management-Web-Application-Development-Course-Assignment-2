@@ -473,7 +473,7 @@ const GAME_LEVELS = [
           { value: "flex-start", label: "flex-start" },
           { value: "flex-end", label: "flex-end" },
           { value: "center", label: "center" },
-          { value: "flex-end", label: "flex-end" }
+          { value: "stretch", label: "stretch" }
         ]
       }
     ],

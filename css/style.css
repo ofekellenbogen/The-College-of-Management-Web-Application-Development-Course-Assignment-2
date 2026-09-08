@@ -330,12 +330,18 @@ body {
   box-shadow: 0 0 8px var(--accent-cyan);
 }
 
-/* Main Workspace Grid (Split Screen) */
+/* Main Workspace Split Screen (Flexbox) */
 .game-workspace {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
   gap: 1.75rem;
-  align-items: start;
+  align-items: flex-start;
+}
+
+.game-workspace > .controls-panel,
+.game-workspace > .simulation-panel {
+  flex: 1 1 400px;
+  min-width: 0;
 }
 
 /* Buttons System */
@@ -483,11 +489,16 @@ body {
   margin-bottom: 1.25rem;
 }
 
-/* Levels Grid Modal */
+/* Levels Grid Modal (Flexbox) */
 .levels-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.85rem;
+}
+
+.levels-grid .level-card-btn {
+  flex: 1 1 130px;
+  max-width: calc(33.333% - 0.6rem);
 }
 
 .level-card-btn {
@@ -836,8 +847,12 @@ body {
   }
 
   .levels-grid {
-    grid-template-columns: repeat(2, 1fr);
     gap: 0.6rem;
+  }
+
+  .levels-grid .level-card-btn {
+    flex: 1 1 calc(50% - 0.4rem);
+    max-width: calc(50% - 0.4rem);
   }
 
   .level-card-btn {
