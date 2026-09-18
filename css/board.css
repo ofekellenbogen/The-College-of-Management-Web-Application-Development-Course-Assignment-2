@@ -295,21 +295,28 @@
 .legend-item {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
 }
 
-.legend-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+.legend-icon {
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-.legend-dot.target-dot {
-  border: 1.5px dashed var(--accent-cyan);
-  background: rgba(0, 240, 255, 0.2);
+.legend-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
-.legend-dot.ship-dot {
-  background: var(--accent-orange);
-  box-shadow: 0 0 6px var(--accent-orange);
+.legend-icon.target-icon img {
+  filter: drop-shadow(0 0 5px var(--accent-cyan));
+}
+
+.legend-icon.ship-icon img {
+  filter: drop-shadow(0 0 5px var(--accent-cyan));
 }
