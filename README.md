@@ -6,7 +6,7 @@
 ![Space Orbit Game](assets/spaceship-cyan.svg)
 
 ## 🌌 על המשחק
-**Space Orbit: Flexbox Navigator** הוא משחק חלל שבו מנווטים חלליות לתחנות עגינה מתאימות באמצעות כתיבת חוקי **CSS Flexbox**.
+הפרויקט **Space Orbit: Flexbox Navigator** הוא משחק חלל שבו מנווטים חלליות לתחנות עגינה מתאימות באמצעות כתיבת חוקי **CSS Flexbox**.
 
 הפרויקט בנוי ב-**Vanilla JS, CSS ו-HTML** ללא ספריות חיצוניות.
 
