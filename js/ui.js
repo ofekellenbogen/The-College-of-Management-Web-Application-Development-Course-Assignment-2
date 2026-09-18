@@ -70,6 +70,13 @@ class SpaceOrbitUI {
     this.finalTotalStars = document.getElementById('final-total-stars');
     this.btnRestartGame = document.getElementById('btn-restart-game');
     this.btnCloseFinal = document.getElementById('btn-close-final');
+
+    // Confirm Restart Entire Game Modal & Button
+    this.btnRestartAll = document.getElementById('btn-restart-all');
+    this.modalConfirmRestart = document.getElementById('modal-confirm-restart');
+    this.btnCloseRestartModal = document.getElementById('btn-close-restart-modal');
+    this.btnConfirmRestartYes = document.getElementById('btn-confirm-restart-yes');
+    this.btnConfirmRestartNo = document.getElementById('btn-confirm-restart-no');
   }
 
   bindEvents() {
@@ -145,8 +152,38 @@ class SpaceOrbitUI {
       this.modalGameComplete.classList.add('hidden');
     });
 
+    // Reset Entire Game Modal Handlers
+    if (this.btnRestartAll) {
+      this.btnRestartAll.addEventListener('click', () => {
+        this.playSound('click');
+        this.modalConfirmRestart.classList.remove('hidden');
+      });
+    }
+
+    if (this.btnCloseRestartModal) {
+      this.btnCloseRestartModal.addEventListener('click', () => {
+        this.modalConfirmRestart.classList.add('hidden');
+      });
+    }
+
+    if (this.btnConfirmRestartNo) {
+      this.btnConfirmRestartNo.addEventListener('click', () => {
+        this.modalConfirmRestart.classList.add('hidden');
+      });
+    }
+
+    if (this.btnConfirmRestartYes) {
+      this.btnConfirmRestartYes.addEventListener('click', () => {
+        this.modalConfirmRestart.classList.add('hidden');
+        this.playSound('reset');
+        window.spaceOrbit.restartEntireGame();
+        this.showFeedback('info', 'המשחק אופס בהצלחה! חזרת לשלב 1.');
+      });
+    }
+
     // Close modals on clicking outside modal card
-    [this.modalLevels, this.modalCheatsheet, this.modalVictory, this.modalGameComplete].forEach(modal => {
+    [this.modalLevels, this.modalCheatsheet, this.modalVictory, this.modalGameComplete, this.modalConfirmRestart].forEach(modal => {
+      if (!modal) return;
       modal.addEventListener('click', (e) => {
         if (e.target === modal) {
           modal.classList.add('hidden');
@@ -161,6 +198,7 @@ class SpaceOrbitUI {
         this.modalCheatsheet.classList.add('hidden');
         this.modalVictory.classList.add('hidden');
         this.modalGameComplete.classList.add('hidden');
+        if (this.modalConfirmRestart) this.modalConfirmRestart.classList.add('hidden');
       } else if (e.key === 'Enter' && !this.isModalOpen()) {
         window.spaceOrbit.validateSolution();
       }
@@ -171,7 +209,8 @@ class SpaceOrbitUI {
     return !this.modalLevels.classList.contains('hidden') ||
            !this.modalCheatsheet.classList.contains('hidden') ||
            !this.modalVictory.classList.contains('hidden') ||
-           !this.modalGameComplete.classList.contains('hidden');
+           !this.modalGameComplete.classList.contains('hidden') ||
+           (this.modalConfirmRestart && !this.modalConfirmRestart.classList.contains('hidden'));
   }
 
   /* ==========================================================================

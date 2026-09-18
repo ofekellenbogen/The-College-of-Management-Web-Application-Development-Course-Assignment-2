@@ -308,6 +308,13 @@ body {
   color: var(--accent-cyan);
 }
 
+.header-btn.restart-btn:hover {
+  border-color: #ff4b2b;
+  background: rgba(255, 75, 43, 0.15);
+  color: #ff7761;
+  box-shadow: 0 0 10px rgba(255, 75, 43, 0.3);
+}
+
 .header-btn.icon-only {
   padding: 0.4rem 0.6rem;
 }
