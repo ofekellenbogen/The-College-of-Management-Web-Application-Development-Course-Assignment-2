@@ -47,15 +47,17 @@ class SpaceOrbitGame {
 
     // Update progress state
     this.progress.lastPlayedLevel = level.id;
-    if (!this.progress.unlockedLevels.includes(level.id)) {
-      this.progress.unlockedLevels.push(level.id);
-    }
     this.saveProgress();
 
     // Trigger UI updates
     if (window.gameUI) {
       window.gameUI.renderLevel(level, this.userStyles, this.attempts, this.progress);
     }
+  }
+
+  isCurrentLevelCompleted() {
+    const level = this.getCurrentLevel();
+    return !!(this.progress.completedLevels && this.progress.completedLevels[level.id]);
   }
 
   updateProperty(property, value) {
@@ -181,11 +183,17 @@ class SpaceOrbitGame {
   }
 
   nextLevel() {
-    if (this.currentLevelIndex < GAME_LEVELS.length - 1) {
+    const nextLevelId = this.getCurrentLevel().id + 1;
+    // Can only advance if the current level has been completed and next level exists & is unlocked
+    if (
+      this.currentLevelIndex < GAME_LEVELS.length - 1 &&
+      this.isCurrentLevelCompleted() &&
+      this.progress.unlockedLevels.includes(nextLevelId)
+    ) {
       this.loadLevel(this.currentLevelIndex + 1);
       return true;
     }
-    return false; // Reached last level
+    return false; // Cannot proceed
   }
 
   prevLevel() {

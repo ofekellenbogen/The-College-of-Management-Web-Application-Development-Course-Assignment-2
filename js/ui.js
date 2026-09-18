@@ -39,7 +39,6 @@ class SpaceOrbitUI {
     this.feedbackIcon = document.getElementById('feedback-icon');
     this.feedbackTitle = document.getElementById('feedback-title');
     this.feedbackText = document.getElementById('feedback-text');
-    this.btnNextStepInline = document.getElementById('btn-next-step-inline');
     this.hintBox = document.getElementById('hint-box');
     this.hintContent = document.getElementById('hint-content');
     this.btnCloseHint = document.getElementById('btn-close-hint');
@@ -105,11 +104,6 @@ class SpaceOrbitUI {
 
     this.btnCloseHint.addEventListener('click', () => {
       this.hintBox.classList.add('hidden');
-    });
-
-    this.btnNextStepInline.addEventListener('click', () => {
-      this.playSound('click');
-      window.spaceOrbit.nextLevel();
     });
 
     // Modal Triggers
@@ -200,12 +194,13 @@ class SpaceOrbitUI {
     this.progressBarFill.style.width = `${pct}%`;
 
     // Navigation buttons state
+    const isCompleted = !!(progress.completedLevels && progress.completedLevels[level.id]);
+    const nextLevelExists = level.id < GAME_LEVELS.length;
     this.btnPrevLevel.disabled = level.id === 1;
-    this.btnNextLevel.disabled = !progress.unlockedLevels.includes(level.id + 1) || level.id === GAME_LEVELS.length;
+    this.btnNextLevel.disabled = !isCompleted || !nextLevelExists;
 
     // Reset feedback and board glow
     this.feedbackBanner.classList.add('hidden');
-    this.btnNextStepInline.classList.add('hidden');
     this.spaceBoard.classList.remove('success-glow', 'shake');
 
     // 2. Render Board Elements (Docks and Ships)
@@ -312,6 +307,11 @@ class SpaceOrbitUI {
       }
     });
 
+    // Remove docked state from ships & board glow
+    const ships = this.fleetContainer.querySelectorAll('.spaceship');
+    ships.forEach(s => s.classList.remove('docked'));
+    this.spaceBoard.classList.remove('success-glow', 'shake');
+
     this.updateFleetStyles(userStyles, baseStyles);
   }
 
@@ -376,7 +376,11 @@ class SpaceOrbitUI {
     ships.forEach(s => s.classList.add('docked'));
 
     this.showFeedback('success', `החלליות הגיעו בדיוק ליעד בניסיון מספר ${attempts}!`, 'כל הכבוד!');
-    this.btnNextStepInline.classList.remove('hidden');
+
+    // Enable next level header button now that level is completed
+    if (hasNextLevel) {
+      this.btnNextLevel.disabled = false;
+    }
 
     // Show Victory Modal after small delay
     setTimeout(() => {
