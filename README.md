@@ -1,9 +1,13 @@
-<div dir="rtl">
+<div align="center">
 
 # 🚀 Space Orbit: Flexbox Navigator
-> משחק אינטראקטיבי לתרגול ולימוד CSS Flexbox | מטלה 2 בפיתוח יישומי אינטרנט
+### משחק אינטראקטיבי לתרגול ולימוד CSS Flexbox
 
 ![Space Orbit Game](assets/spaceship-cyan.svg)
+
+</div>
+
+<div dir="rtl">
 
 ## 🌌 על המשחק
 הפרויקט **Space Orbit: Flexbox Navigator** הוא משחק חלל שבו מנווטים חלליות לתחנות עגינה מתאימות באמצעות כתיבת חוקי **CSS Flexbox**.
